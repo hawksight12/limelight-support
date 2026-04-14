@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limelight - The app for every show</title>
+  <meta name="description" content="Limelight brings rehearsals, scripts, tracks and cast chat into one app. Built for musical theatre schools, am dram societies, school productions and community theatre." />
+  <meta property="og:title" content="Limelight - The app for every show" />
+  <meta property="og:description" content="Rehearsals, scripts, tracks and cast chat in one place." />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --purple: #5B2A86;
+      --purple-dark: #3E1D5E;
+      --purple-light: #8E5BC5;
+      --text: #15121c;
+      --muted: #5a5a5a;
+      --bg: #faf8ff;
+      --card: #ffffff;
+      --border: #ece6f6;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--purple); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(1200px 500px at 80% -100px, rgba(142,91,197,0.35), transparent 60%),
+        radial-gradient(900px 400px at 10% 100%, rgba(91,42,134,0.25), transparent 60%),
+        linear-gradient(180deg, #1a0f2b 0%, #2b1649 100%);
+      color: #fff;
+      padding: 96px 24px 120px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ffffff 0%, #e9dbfd 100%);
+      color: var(--purple-dark);
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: -1px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: 56px;
+      line-height: 1.05;
+      margin: 0 0 18px;
+      letter-spacing: -1.2px;
+      font-weight: 800;
+    }
+    .hero p.lede {
+      font-size: 20px;
+      max-width: 620px;
+      margin: 0 auto 32px;
+      color: rgba(255,255,255,0.85);
+    }
+    .badges { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .cta-row {
+      margin-top: 36px;
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .btn-primary { background: #fff; color: var(--purple-dark); }
+    .btn-primary:hover { background: #f1e6ff; text-decoration: none; }
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
+
+    /* Sections */
+    section.wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    h2 {
+      font-size: 34px;
+      margin: 0 0 14px;
+      letter-spacing: -0.5px;
+      color: var(--purple-dark);
+    }
+    p.sub {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 640px;
+      margin: 0 0 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .feature:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(91,42,134,0.08);
+    }
+    .feature .ico {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+    }
+    .feature h3 {
+      font-size: 18px;
+      margin: 0 0 6px;
+    }
+    .feature p {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 0;
+    }
+
+    /* Audience */
+    .audience {
+      background: linear-gradient(180deg, #ffffff, #f5efff);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .audience-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .audience-list div {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* CTA band */
+    .final {
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+      color: #fff;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .final h2 { color: #fff; }
+    .final p { color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 28px; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 28px 24px 40px;
+      background: #fff;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); font-weight: 500; margin: 0 10px; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 72px 20px 88px; }
+      .hero h1 { font-size: 40px; }
+      .hero p.lede { font-size: 17px; }
+      h2 { font-size: 26px; }
+      section.wrap { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="logo">L</div>
+    <h1>Every voice on stage,<br/>in one place.</h1>
+    <p class="lede">Limelight brings rehearsals, scripts, backing tracks and cast chat into one app. Built for musical theatre schools, am dram societies, school productions and community theatre.</p>
+    <div class="badges">
+      <span class="badge">Rehearsals</span>
+      <span class="badge">Scripts &amp; scores</span>
+      <span class="badge">Backing tracks</span>
+      <span class="badge">Cast chat</span>
+    </div>
+    <div class="cta-row">
+      <a href="#features" class="btn btn-primary">See what's inside</a>
+      <a href="mailto:dom@limelightlabs.co.uk?subject=Limelight%20enquiry" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="wrap" id="features">
+    <h2>Everything your show needs</h2>
+    <p class="sub">From the first read through to opening night, Limelight keeps your whole company organised so you can focus on the performance.</p>
+
+    <div class="grid">
+      <div class="feature">
+        <div class="ico">&#127747;</div>
+        <h3>Rehearsals</h3>
+        <p>Schedules, call sheets and reminders, so nobody misses a call.</p>
+      </div>
+      <div class="feature">
+        <div class="ico">&#128209;</div>
+        <h3>Scripts &amp; scores</h3>
+        <p>Share scripts, programme notes and sheet music, ready to read on any device.</p>
+      </div>
+      <div class="feature">
+        <div class="ico">&#127925;</div>
+        <h3>Backing tracks</h3>
+        <p>Original tracks, backing tracks and warm ups with proper background playback.</p>
+      </div>
+      <div class="feature">
+        <div class="ico">&#128172;</div>
+        <h3>Cast chat</h3>
+        <p>Group and direct messages, organised by show, so nothing gets lost.</p>
+      </div>
+      <div class="feature">
+        <div class="ico">&#128240;</div>
+        <h3>Newsfeed</h3>
+        <p>Announcements, notes and updates, pushed straight to the company.</p>
+      </div>
+      <div class="feature">
+        <div class="ico">&#128101;</div>
+        <h3>Cast &amp; crew</h3>
+        <p>Roles, parts and contact details all in one place for the whole production.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="audience">
+    <div class="wrap" style="padding-top: 60px; padding-bottom: 60px;">
+      <h2>Built for every kind of show</h2>
+      <p class="sub">Whether it's Oliver! in the school hall or a sell out run at the local theatre, Limelight keeps your production on cue.</p>
+      <div class="audience-list">
+        <div>Musical theatre schools</div>
+        <div>Am dram societies</div>
+        <div>School productions</div>
+        <div>Youth theatre groups</div>
+        <div>Community theatre</div>
+        <div>University drama</div>
+        <div>Performing arts clubs</div>
+        <div>Workshops &amp; showcases</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <h2>Ready to raise the curtain?</h2>
+    <p>Limelight is launching soon on the App Store. Get in touch to find out how to bring it to your production.</p>
+    <a href="mailto:dom@limelightlabs.co.uk?subject=Limelight%20enquiry" class="btn btn-primary">Contact us</a>
+  </section>
+
+  <footer>
+    &copy; <span id="year"></span> Limelight Labs.
+    <a href="../">Support</a>
+    <a href="mailto:dom@limelightlabs.co.uk">Contact</a>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

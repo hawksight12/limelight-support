@@ -3,297 +3,964 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Limelight - The app for every show</title>
-  <meta name="description" content="Limelight brings rehearsals, scripts, tracks and cast chat into one app. Built for musical theatre schools, am dram societies, school productions and community theatre." />
-  <meta property="og:title" content="Limelight - The app for every show" />
-  <meta property="og:description" content="Rehearsals, scripts, tracks and cast chat in one place." />
+  <title>Limelight - The app behind every great show</title>
+  <meta name="description" content="Limelight brings rehearsals, scripts, backing tracks and cast chat into one app. Built for musical theatre schools, am dram societies, school productions and community theatre." />
+
+  <meta property="og:title" content="Limelight - The app behind every great show" />
+  <meta property="og:description" content="Rehearsals, scripts, backing tracks and cast chat. In one place. For every production." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://hawksight12.github.io/limelight-support/marketing/assets/app-icon.png" />
+
+  <link rel="icon" type="image/png" href="assets/app-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --purple: #5B2A86;
-      --purple-dark: #3E1D5E;
-      --purple-light: #8E5BC5;
-      --text: #15121c;
-      --muted: #5a5a5a;
-      --bg: #faf8ff;
-      --card: #ffffff;
-      --border: #ece6f6;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: var(--purple); text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
+      --ink: #15121c;
+      --ink-soft: #4a3f5c;
+      --muted: #6b5f7a;
+      --canvas: #faf7fd;
+      --paper: #ffffff;
+      --purple: #7C4FA4;
+      --purple-deep: #4a2a6b;
+      --lilac: #eadbf5;
+      --lime: #8ED946;
 
-    /* Hero */
-    .hero {
-      background:
-        radial-gradient(1200px 500px at 80% -100px, rgba(142,91,197,0.35), transparent 60%),
-        radial-gradient(900px 400px at 10% 100%, rgba(91,42,134,0.25), transparent 60%),
-        linear-gradient(180deg, #1a0f2b 0%, #2b1649 100%);
-      color: #fff;
-      padding: 96px 24px 120px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
+      --display: 'Fraunces', 'Georgia', serif;
+      --body: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    .hero .logo {
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--body);
+      background: var(--canvas);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      font-feature-settings: "ss01", "cv01";
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay for printed-paper feel */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      mix-blend-mode: multiply;
+    }
+
+    a {
+      color: var(--purple);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    a.underline-slide::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    a.underline-slide:hover::after { transform: scaleX(1); }
+
+    /* Running marks - ACT I, ACT II etc */
+    .act-mark {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      color: var(--purple);
+      text-transform: uppercase;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ffffff 0%, #e9dbfd 100%);
-      color: var(--purple-dark);
-      font-weight: 800;
-      font-size: 36px;
-      letter-spacing: -1px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
-    .hero h1 {
-      font-size: 56px;
-      line-height: 1.05;
-      margin: 0 0 18px;
-      letter-spacing: -1.2px;
-      font-weight: 800;
+    .act-mark::before,
+    .act-mark::after {
+      content: '';
+      flex: 0 0 28px;
+      height: 1px;
+      background: var(--purple);
+      opacity: 0.5;
     }
-    .hero p.lede {
+
+    /* -------- Navigation -------- */
+    nav.topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      background: rgba(250, 247, 253, 0.7);
+      border-bottom: 1px solid var(--lilac);
+    }
+    nav.topbar .inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--display);
+      font-weight: 500;
       font-size: 20px;
-      max-width: 620px;
-      margin: 0 auto 32px;
-      color: rgba(255,255,255,0.85);
+      letter-spacing: -0.01em;
+      color: var(--ink);
     }
-    .badges { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .badge {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 999px;
+    .wordmark img {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+    }
+    nav.topbar .links {
+      display: inline-flex;
+      gap: 28px;
       font-size: 14px;
       font-weight: 500;
     }
-    .cta-row {
-      margin-top: 36px;
+    nav.topbar .links a {
+      color: var(--ink-soft);
+    }
+    nav.topbar .links a:hover { color: var(--purple); }
+
+    /* -------- Hero -------- */
+    .hero {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 88px 32px 96px;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 72px;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero .kicker {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--purple);
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+      animation: rise 0.9s 0.05s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 0;
+      font-size: clamp(44px, 6.4vw, 96px);
+      line-height: 0.98;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 28px;
+      animation: rise 0.9s 0.12s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+      color: var(--purple);
+    }
+
+    .hero .lede {
+      font-size: 20px;
+      line-height: 1.55;
+      max-width: 520px;
+      color: var(--ink-soft);
+      margin-bottom: 36px;
+      animation: rise 0.9s 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .store-row {
       display: inline-flex;
       gap: 12px;
       flex-wrap: wrap;
-      justify-content: center;
+      animation: rise 0.9s 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
     }
-    .btn {
-      display: inline-block;
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
-    }
-    .btn-primary { background: #fff; color: var(--purple-dark); }
-    .btn-primary:hover { background: #f1e6ff; text-decoration: none; }
-    .btn-ghost {
-      background: transparent;
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.35);
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,0.1); text-decoration: none; }
-
-    /* Sections */
-    section.wrap {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 80px 24px;
-    }
-    h2 {
-      font-size: 34px;
-      margin: 0 0 14px;
-      letter-spacing: -0.5px;
-      color: var(--purple-dark);
-    }
-    p.sub {
-      color: var(--muted);
-      font-size: 17px;
-      max-width: 640px;
-      margin: 0 0 40px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-    .feature {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 26px;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .feature:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(91,42,134,0.08);
-    }
-    .feature .ico {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--purple), var(--purple-light));
-      color: #fff;
+    .store-row a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
+      height: 54px;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s ease;
+    }
+    .store-row a:hover { opacity: 0.82; }
+    .store-row img {
+      display: block;
+      height: 54px;
+      width: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .store-row a::after { display: none; }
+
+    .hero .icon-stage {
+      position: relative;
+      justify-self: center;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 1;
+      animation: rise 1s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    }
+
+    .hero .icon-stage .ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 48px;
+      border: 1px solid var(--lilac);
+    }
+    .hero .icon-stage .ring-2 {
+      position: absolute;
+      inset: 16px;
+      border-radius: 40px;
+      border: 1px dashed var(--lilac);
+    }
+
+    .hero .icon-stage .app-icon {
+      position: absolute;
+      inset: 36px;
+      border-radius: 28%;
+      box-shadow: 0 40px 80px -32px rgba(124, 79, 164, 0.55),
+                  0 12px 24px -12px rgba(124, 79, 164, 0.4);
+      animation: float 6s ease-in-out infinite;
+      background-image: url('assets/app-icon.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Little floating label */
+    .hero .icon-stage .note {
+      position: absolute;
+      bottom: -12px;
+      right: -8px;
+      background: var(--ink);
+      color: var(--canvas);
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      animation: float 6s ease-in-out 1s infinite;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-8px); }
+    }
+
+    /* -------- Divider -------- */
+    .section-divider {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .section-divider .rule {
+      height: 1px;
+      background: var(--lilac);
+    }
+
+    /* -------- Act band (sections) -------- */
+    section.act {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 104px 32px;
+    }
+
+    section.act h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 40;
+      font-size: clamp(34px, 4.5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 720px;
+      margin-bottom: 20px;
+    }
+    section.act h2 em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+      color: var(--purple);
+    }
+
+    section.act .intro {
+      font-size: 19px;
+      color: var(--ink-soft);
+      max-width: 620px;
+      line-height: 1.55;
+    }
+
+    /* Drop cap on opening paragraph */
+    section.act .intro--drop::first-letter {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 72px;
+      line-height: 0.85;
+      float: left;
+      margin: 6px 12px 0 0;
+      color: var(--purple);
+      font-variation-settings: 'opsz' 144, 'SOFT' 50;
+    }
+
+    /* Alternating feature blocks */
+    .features {
+      margin-top: 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 88px;
+    }
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .feature-row.reverse .feature-text { order: 2; }
+    .feature-row .feature-num {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple);
+      display: block;
       margin-bottom: 14px;
     }
-    .feature h3 {
-      font-size: 18px;
-      margin: 0 0 6px;
+    .feature-row h3 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 96, 'SOFT' 40;
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 18px;
+      color: var(--ink);
     }
-    .feature p {
-      color: var(--muted);
-      font-size: 15px;
-      margin: 0;
+    .feature-row h3 em {
+      font-style: italic;
+      color: var(--purple);
+      font-weight: 400;
+    }
+    .feature-row p {
+      color: var(--ink-soft);
+      font-size: 17px;
+      line-height: 1.65;
+      max-width: 480px;
     }
 
-    /* Audience */
-    .audience {
-      background: linear-gradient(180deg, #ffffff, #f5efff);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    /* Feature illustrations: typographic/abstract, no stock-art */
+    .feature-visual {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--lilac);
+      border-radius: 20px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .visual-rehearsals .grid-days {
+      position: absolute;
+      inset: 28px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: auto 1fr;
+      gap: 6px 4px;
+      font-family: var(--display);
+      font-weight: 500;
+    }
+    .visual-rehearsals .grid-days .day {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--lilac);
+    }
+    .visual-rehearsals .grid-days .slot {
+      border-radius: 6px;
+      font-size: 10px;
+      padding: 6px 4px;
+      line-height: 1.2;
+      font-family: var(--body);
+      font-weight: 500;
+    }
+    .visual-rehearsals .slot.purple { background: var(--purple); color: #fff; }
+    .visual-rehearsals .slot.soft   { background: var(--lilac); color: var(--purple-deep); }
+    .visual-rehearsals .slot.ink    { background: var(--ink); color: var(--canvas); }
+
+    .visual-scripts .script-page {
+      position: absolute;
+      top: 24px;
+      left: 32px;
+      right: 80px;
+      bottom: 20px;
+      background: var(--canvas);
+      border-radius: 8px 8px 16px 16px;
+      border: 1px solid var(--lilac);
+      box-shadow: 0 12px 30px -16px rgba(124,79,164,0.25);
+      padding: 22px 24px;
+      font-family: var(--display);
+      font-weight: 500;
+      transform: rotate(-1.5deg);
+      overflow: hidden;
+    }
+    .visual-scripts .script-page .scene {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--purple);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .visual-scripts .script-page .line {
+      font-size: 11px;
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 4px;
+    }
+    .visual-scripts .script-page .line .name {
+      font-style: italic;
+      color: var(--purple-deep);
+      font-weight: 500;
+      margin-right: 6px;
+    }
+    .visual-scripts .page-2 {
+      position: absolute;
+      top: 40px;
+      left: 60px;
+      right: 48px;
+      bottom: 38px;
+      background: var(--paper);
+      border-radius: 8px;
+      border: 1px solid var(--lilac);
+      transform: rotate(2deg);
+      z-index: -1;
+    }
+
+    .visual-tracks .player {
+      position: absolute;
+      inset: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .visual-tracks .track {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--lilac);
+      background: var(--canvas);
+    }
+    .visual-tracks .track.playing {
+      background: var(--purple);
+      color: #fff;
+      border-color: var(--purple);
+    }
+    .visual-tracks .track .num {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 12px;
+      opacity: 0.7;
+      width: 20px;
+    }
+    .visual-tracks .track .title {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 14px;
+      flex: 1;
+    }
+    .visual-tracks .track .dur {
+      font-family: var(--body);
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    .visual-tracks .bars {
+      display: inline-flex;
+      gap: 2px;
+      align-items: end;
+      height: 14px;
+      width: 18px;
+    }
+    .visual-tracks .bars span {
+      width: 2px;
+      background: currentColor;
+      border-radius: 1px;
+      animation: barDance 1.3s infinite ease-in-out;
+    }
+    .visual-tracks .bars span:nth-child(1) { height: 30%; animation-delay: 0s; }
+    .visual-tracks .bars span:nth-child(2) { height: 70%; animation-delay: 0.12s; }
+    .visual-tracks .bars span:nth-child(3) { height: 45%; animation-delay: 0.24s; }
+    .visual-tracks .bars span:nth-child(4) { height: 90%; animation-delay: 0.36s; }
+    .visual-tracks .bars span:nth-child(5) { height: 55%; animation-delay: 0.48s; }
+
+    @keyframes barDance {
+      0%, 100% { transform: scaleY(1); }
+      50%      { transform: scaleY(0.4); }
+    }
+
+    .visual-chat .messages {
+      position: absolute;
+      inset: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .visual-chat .bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.45;
+      background: var(--lilac);
+      color: var(--ink);
+      align-self: flex-start;
+      font-family: var(--body);
+    }
+    .visual-chat .bubble.me {
+      background: var(--purple);
+      color: #fff;
+      align-self: flex-end;
+    }
+    .visual-chat .bubble .who {
+      display: block;
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+      color: var(--purple);
+    }
+    .visual-chat .bubble.me .who { color: rgba(255,255,255,0.7); }
+
+    /* -------- Who it's for -------- */
+    .audience-band {
+      background: var(--paper);
+      border-top: 1px solid var(--lilac);
+      border-bottom: 1px solid var(--lilac);
+    }
+    .audience-band .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 104px 32px;
     }
     .audience-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-      margin-top: 24px;
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      max-width: 860px;
     }
-    .audience-list div {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 18px;
+    .audience-item {
+      display: flex;
+      align-items: baseline;
+      padding: 22px 0;
+      border-bottom: 1px dotted var(--lilac);
+      gap: 18px;
+      font-size: 22px;
+      font-family: var(--display);
+      font-weight: 400;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+    }
+    .audience-item:last-child { border-bottom: 0; }
+    .audience-item .no {
+      font-style: italic;
+      color: var(--purple);
       font-weight: 500;
-      color: var(--text);
+      font-size: 14px;
+      min-width: 42px;
+      letter-spacing: 0.08em;
     }
-
-    /* CTA band */
-    .final {
-      background: linear-gradient(135deg, var(--purple-dark), var(--purple));
-      color: #fff;
-      text-align: center;
-      padding: 80px 24px;
+    .audience-item .name { flex: 1; }
+    .audience-item .leaders {
+      flex: 1;
+      border-bottom: 1px dotted var(--muted);
+      margin: 0 4px 6px;
+      height: 0;
+      opacity: 0.4;
     }
-    .final h2 { color: #fff; }
-    .final p { color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 28px; }
-
-    footer {
-      text-align: center;
+    .audience-item .role {
+      font-family: var(--body);
+      font-size: 14px;
       color: var(--muted);
-      font-size: 13px;
-      padding: 28px 24px 40px;
-      background: #fff;
-      border-top: 1px solid var(--border);
+      font-weight: 500;
     }
-    footer a { color: var(--muted); font-weight: 500; margin: 0 10px; }
 
-    @media (max-width: 600px) {
-      .hero { padding: 72px 20px 88px; }
-      .hero h1 { font-size: 40px; }
-      .hero p.lede { font-size: 17px; }
-      h2 { font-size: 26px; }
-      section.wrap { padding: 60px 20px; }
+    /* -------- Final CTA -------- */
+    .curtain {
+      padding: 140px 32px 120px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .curtain .lime-mark {
+      width: 72px;
+      height: 72px;
+      border-radius: 20%;
+      margin: 0 auto 32px;
+      background-image: url('assets/app-icon.png');
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 24px 48px -20px rgba(124, 79, 164, 0.5);
+    }
+    .curtain h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-variation-settings: 'opsz' 144, 'SOFT' 40;
+      font-size: clamp(40px, 5.5vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .curtain h2 em {
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+      color: var(--purple);
+    }
+    .curtain p {
+      color: var(--ink-soft);
+      font-size: 19px;
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.55;
+    }
+    .curtain .store-row {
+      justify-content: center;
+    }
+
+    /* -------- Footer -------- */
+    footer.foot {
+      background: var(--ink);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 56px 32px 44px;
+      font-size: 14px;
+    }
+    footer.foot .inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    footer.foot .wordmark {
+      color: #fff;
+    }
+    footer.foot .wordmark img {
+      background: #fff;
+    }
+    footer.foot nav {
+      display: inline-flex;
+      gap: 24px;
+    }
+    footer.foot a {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    footer.foot a:hover { color: #fff; }
+    footer.foot .copy {
+      font-family: var(--display);
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.03em;
+    }
+
+    /* -------- Responsive -------- */
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 56px 24px 72px;
+        gap: 48px;
+      }
+      .hero .icon-stage {
+        max-width: 280px;
+        order: -1;
+      }
+      section.act { padding: 72px 24px; }
+      .feature-row {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .feature-row.reverse .feature-text { order: 0; }
+      .audience-band .wrap { padding: 72px 24px; }
+      .audience-item { font-size: 17px; padding: 18px 0; gap: 12px; }
+      .audience-item .leaders { display: none; }
+      .curtain { padding: 96px 24px 80px; }
+      nav.topbar .inner { padding: 14px 20px; }
+      nav.topbar .links { gap: 18px; font-size: 13px; }
+      footer.foot .inner { flex-direction: column; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero .icon-stage .app-icon,
+      .hero .icon-stage .note,
+      .visual-tracks .bars span {
+        animation: none !important;
+      }
+      .hero .kicker, .hero h1, .hero .lede, .store-row, .hero .icon-stage {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
 
+  <nav class="topbar">
+    <div class="inner">
+      <a href="./" class="wordmark" style="color: var(--ink);">
+        <img src="assets/app-icon.png" alt="" />
+        <span>Limelight</span>
+      </a>
+      <div class="links">
+        <a href="#features" class="underline-slide">Features</a>
+        <a href="#audience" class="underline-slide">Who it's for</a>
+        <a href="../" class="underline-slide">Support</a>
+      </div>
+    </div>
+  </nav>
+
   <section class="hero">
-    <div class="logo">L</div>
-    <h1>Every voice on stage,<br/>in one place.</h1>
-    <p class="lede">Limelight brings rehearsals, scripts, backing tracks and cast chat into one app. Built for musical theatre schools, am dram societies, school productions and community theatre.</p>
-    <div class="badges">
-      <span class="badge">Rehearsals</span>
-      <span class="badge">Scripts &amp; scores</span>
-      <span class="badge">Backing tracks</span>
-      <span class="badge">Cast chat</span>
+    <div class="hero-text">
+      <div class="kicker">Musical theatre, organised.</div>
+      <h1>The app behind every <em>great show.</em></h1>
+      <p class="lede">Rehearsals, scripts, backing tracks and cast chat. Every voice, every page and every call, in one place. From the first read-through to opening night.</p>
+      <div class="store-row">
+        <a href="https://apps.apple.com/us/app/limelight-mt/id6762212482" target="_blank" rel="noopener" aria-label="Download on the App Store">
+          <img src="assets/apple-app-store.svg" alt="Download on the App Store" />
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.limelight.mil.app" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+          <img src="assets/google-play.png" alt="Get it on Google Play" />
+        </a>
+      </div>
     </div>
-    <div class="cta-row">
-      <a href="#features" class="btn btn-primary">See what's inside</a>
-      <a href="mailto:dom@limelightlabs.co.uk?subject=Limelight%20enquiry" class="btn btn-ghost">Get in touch</a>
-    </div>
-  </section>
-
-  <section class="wrap" id="features">
-    <h2>Everything your show needs</h2>
-    <p class="sub">From the first read through to opening night, Limelight keeps your whole company organised so you can focus on the performance.</p>
-
-    <div class="grid">
-      <div class="feature">
-        <div class="ico">&#127747;</div>
-        <h3>Rehearsals</h3>
-        <p>Schedules, call sheets and reminders, so nobody misses a call.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">&#128209;</div>
-        <h3>Scripts &amp; scores</h3>
-        <p>Share scripts, programme notes and sheet music, ready to read on any device.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">&#127925;</div>
-        <h3>Backing tracks</h3>
-        <p>Original tracks, backing tracks and warm ups with proper background playback.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">&#128172;</div>
-        <h3>Cast chat</h3>
-        <p>Group and direct messages, organised by show, so nothing gets lost.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">&#128240;</div>
-        <h3>Newsfeed</h3>
-        <p>Announcements, notes and updates, pushed straight to the company.</p>
-      </div>
-      <div class="feature">
-        <div class="ico">&#128101;</div>
-        <h3>Cast &amp; crew</h3>
-        <p>Roles, parts and contact details all in one place for the whole production.</p>
-      </div>
+    <div class="icon-stage">
+      <div class="ring"></div>
+      <div class="ring-2"></div>
+      <div class="app-icon" role="img" aria-label="Limelight app icon"></div>
+      <div class="note">In the limelight</div>
     </div>
   </section>
 
-  <section class="audience">
-    <div class="wrap" style="padding-top: 60px; padding-bottom: 60px;">
-      <h2>Built for every kind of show</h2>
-      <p class="sub">Whether it's Oliver! in the school hall or a sell out run at the local theatre, Limelight keeps your production on cue.</p>
+  <div class="section-divider"><div class="rule"></div></div>
+
+  <section class="act" id="features">
+    <div class="act-mark">Act I &nbsp;&middot;&nbsp; The company</div>
+    <h2>Whether it's the school hall or the West End, your production deserves a <em>proper stage manager.</em></h2>
+    <p class="intro intro--drop">Limelight is the app your company already wishes it had. Built for directors, teachers and cast who are tired of threaded emails, lost scripts and group chats that forgot to send the call sheet. Everything your show needs, tied neatly together and always in the right pocket.</p>
+
+    <div class="features">
+
+      <div class="feature-row">
+        <div class="feature-text">
+          <span class="feature-num">No. 01 &middot; Rehearsals</span>
+          <h3>Every call, every day, <em>on cue.</em></h3>
+          <p>Rehearsal schedules, call sheets and reminders. Cast get pushed notifications before every call, so nobody's the last one through the door. Changes sync instantly across the company.</p>
+        </div>
+        <div class="feature-visual visual-rehearsals">
+          <div class="grid-days">
+            <div class="day">M</div><div class="day">T</div><div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div><div class="day">S</div>
+            <div class="slot soft">Act I</div>
+            <div class="slot purple">Full cast</div>
+            <div class="slot soft">Leads</div>
+            <div class="slot ink">Tech</div>
+            <div class="slot purple">Dress</div>
+            <div class="slot soft">Matinée</div>
+            <div class="slot purple">Night</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <span class="feature-num">No. 02 &middot; Scripts &amp; scores</span>
+          <h3>Pages that turn when you <em>need them to.</em></h3>
+          <p>Scripts, programme notes and sheet music, uploaded once and shared with the right cast. Read on phone, tablet or printed out. Annotate privately or pass a note to the director.</p>
+        </div>
+        <div class="feature-visual visual-scripts">
+          <div class="page-2"></div>
+          <div class="script-page">
+            <div class="scene">Act II &middot; Scene III</div>
+            <div class="line"><span class="name">Fagin.</span> You've got to pick a pocket or two.</div>
+            <div class="line"><span class="name">Oliver.</span> Sir, are you serious?</div>
+            <div class="line"><span class="name">Fagin.</span> Boy, why do you think we work for free?</div>
+            <div class="line"><span class="name">Dodger.</span> <em>(enters, carrying silk.)</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row">
+        <div class="feature-text">
+          <span class="feature-num">No. 03 &middot; Backing tracks</span>
+          <h3>The whole score, <em>in your pocket.</em></h3>
+          <p>Original recordings, backing tracks and vocal warm-ups. Proper background playback, so students can rehearse with their earphones in on the bus home. No advert breaks, no algorithm, just the music.</p>
+        </div>
+        <div class="feature-visual visual-tracks">
+          <div class="player">
+            <div class="track">
+              <span class="num">01</span>
+              <span class="title">Consider Yourself</span>
+              <span class="dur">3:42</span>
+            </div>
+            <div class="track playing">
+              <span class="num">02</span>
+              <span class="title">I'd Do Anything</span>
+              <span class="bars"><span></span><span></span><span></span><span></span><span></span></span>
+            </div>
+            <div class="track">
+              <span class="num">03</span>
+              <span class="title">As Long As He Needs Me</span>
+              <span class="dur">4:08</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <span class="feature-num">No. 04 &middot; Cast chat</span>
+          <h3>The group chat that <em>actually knows the show.</em></h3>
+          <p>Direct messages, group threads and announcements, organised by production. Share photos from costume fittings, voice notes from the piano, or just remind your ensemble to wear black tonight.</p>
+        </div>
+        <div class="feature-visual visual-chat">
+          <div class="messages">
+            <div class="bubble"><span class="who">Martha (SM)</span>Call sheet for Sunday is up. Leads from 2pm sharp.</div>
+            <div class="bubble me"><span class="who">You</span>Got it. Bringing lines for the tea scene.</div>
+            <div class="bubble"><span class="who">Sara (Oliver)</span>Can we run the workhouse number before then?</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="audience-band" id="audience">
+    <div class="wrap">
+      <div class="act-mark">Act II &nbsp;&middot;&nbsp; The bill</div>
+      <h2>Built for anyone who stages a show.</h2>
+      <p class="intro">From Year 7 musical theatre club to the annual am dram season, Limelight meets your company where it is. No long onboarding, no training day, no IT department required.</p>
+
       <div class="audience-list">
-        <div>Musical theatre schools</div>
-        <div>Am dram societies</div>
-        <div>School productions</div>
-        <div>Youth theatre groups</div>
-        <div>Community theatre</div>
-        <div>University drama</div>
-        <div>Performing arts clubs</div>
-        <div>Workshops &amp; showcases</div>
+        <div class="audience-item">
+          <span class="no">i.</span>
+          <span class="name">Musical theatre schools</span>
+          <span class="leaders"></span>
+          <span class="role">Weekly productions, touring showcases</span>
+        </div>
+        <div class="audience-item">
+          <span class="no">ii.</span>
+          <span class="name">Am dram societies</span>
+          <span class="leaders"></span>
+          <span class="role">Village halls, seasonal runs</span>
+        </div>
+        <div class="audience-item">
+          <span class="no">iii.</span>
+          <span class="name">School productions</span>
+          <span class="leaders"></span>
+          <span class="role">End-of-year shows, house plays</span>
+        </div>
+        <div class="audience-item">
+          <span class="no">iv.</span>
+          <span class="name">Youth theatre groups</span>
+          <span class="leaders"></span>
+          <span class="role">Saturday clubs, summer schools</span>
+        </div>
+        <div class="audience-item">
+          <span class="no">v.</span>
+          <span class="name">Community theatre</span>
+          <span class="leaders"></span>
+          <span class="role">Church halls, civic centres</span>
+        </div>
+        <div class="audience-item">
+          <span class="no">vi.</span>
+          <span class="name">University drama</span>
+          <span class="leaders"></span>
+          <span class="role">Societies, fringe festivals</span>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <section class="curtain">
+    <div class="act-mark">Curtain</div>
+    <div class="lime-mark" role="img" aria-label="Limelight"></div>
+    <h2>Ready to raise the <em>curtain?</em></h2>
+    <p>Limelight is available now on the App Store and Google Play. Free for students, school subscription for teachers.</p>
+    <div class="store-row">
+      <a href="https://apps.apple.com/us/app/limelight-mt/id6762212482" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <img src="assets/apple-app-store.svg" alt="Download on the App Store" />
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.limelight.mil.app" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+        <img src="assets/google-play.png" alt="Get it on Google Play" />
+      </a>
     </div>
   </section>
 
-  <section class="final">
-    <h2>Ready to raise the curtain?</h2>
-    <p>Limelight is launching soon on the App Store. Get in touch to find out how to bring it to your production.</p>
-    <a href="mailto:dom@limelightlabs.co.uk?subject=Limelight%20enquiry" class="btn btn-primary">Contact us</a>
-  </section>
-
-  <footer>
-    &copy; <span id="year"></span> Limelight Labs.
-    <a href="../">Support</a>
-    <a href="mailto:dom@limelightlabs.co.uk">Contact</a>
+  <footer class="foot">
+    <div class="inner">
+      <div class="wordmark">
+        <img src="assets/app-icon.png" alt="" />
+        <span>Limelight</span>
+      </div>
+      <nav>
+        <a href="../">Support</a>
+        <a href="../privacy/">Privacy</a>
+        <a href="mailto:dom@limelightlabs.co.uk">Contact</a>
+      </nav>
+      <span class="copy">&copy; Limelight Labs <span id="year"></span></span>
+    </div>
   </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
